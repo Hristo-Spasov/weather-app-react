@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import SearchBar from "./components/searchBar";
+import SearchBar from "./components/Searchbar";
 import TimeAndLocation from "./components/TimeAndLocation";
 import Details from "./components/Details";
 
@@ -17,34 +17,38 @@ function App() {
       .then((data) => setWeather(data));
   }, []);
   // Fetch API
-  const search = (e) => {
+  const getWeather = () => {
+    fetch(`${BASE_URL}weather?q=${city}&units=metric&appid=${API_KEY}`)
+      .then((res) => res.json())
+      .then((data) => setWeather(data));
+  };
+
+  const handleKey = (e) => {
     if (e.key === "Enter") {
-      fetch(`${BASE_URL}weather?q=${city}&units=metric&appid=${API_KEY}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setWeather(data);
-          setCity("");
-        });
+      getWeather();
+      setCity("");
     }
   };
 
   const handleClick = () => {
-    fetch(`${BASE_URL}weather?q=${city}&units=metric&appid=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setWeather(data);
-        setCity("");
-      });
+    if (!city) return;
+    getWeather();
+    setCity("");
+  };
+
+  const inputChange = (e) => {
+    setCity(e.target.value);
   };
 
   return (
-    <div className=" flex justify-center mx-auto h-screen w-full bg-snowBg bg-center bg-cover py-5 lg:px-32 md:px-32">
+    <div className=" flex justify-center mx-auto h-screen w-full bg-snowBg bg-center bg-cover py-5 lg:px-32 md:px-32 ">
       <main className=" flex flex-col h-fit w-full lg:w-2/3 text-slate-600 bg-slate-800 opacity-80 rounded-md py-2">
         <SearchBar
           city={city}
           setCity={setCity}
-          search={search}
+          handleKey={handleKey}
           handleClick={handleClick}
+          inputChange={inputChange}
         />
         {typeof weather.main != "undefined" ? (
           <div>
