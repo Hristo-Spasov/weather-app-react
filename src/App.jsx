@@ -10,12 +10,25 @@ const BASE_URL = "https://api.openweathermap.org/data/2.5/";
 function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState({});
+
+  const geolocationAPI = navigator.geolocation;
+
   // Intial Load
+
   useEffect(() => {
-    fetch(`${BASE_URL}weather?q=London&units=metric&appid=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setWeather(data));
+    geolocationAPI.getCurrentPosition((position) => {
+      const { coords } = position;
+      const lat = coords.latitude.toFixed(2);
+      const lon = coords.longitude.toFixed(2);
+      fetch(
+        `${BASE_URL}weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+      )
+        .then((res) => res.json())
+        .then((data) => setWeather(data));
+    });
   }, []);
+
+  // useEffect(() => {}, []);
   // Fetch API
   const getWeather = () => {
     fetch(`${BASE_URL}weather?q=${city}&units=metric&appid=${API_KEY}`)
