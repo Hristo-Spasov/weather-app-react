@@ -3,13 +3,16 @@ import "./App.css";
 import SearchBar from "./components/Searchbar";
 import TimeAndLocation from "./components/TimeAndLocation";
 import Details from "./components/Details";
+import Forecast from "./components/Forecast";
 
 const API_KEY = "cfd5a3c5d473ebed2d404b7362727cc3";
 const BASE_URL = "https://api.openweathermap.org/data/2.5/";
+const FORECAST_KEY = "ccd47e17e1794027a3b71444230803";
 
 function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState({});
+  const [forecast, setForecast] = useState([]);
 
   const geolocationAPI = navigator.geolocation;
 
@@ -28,7 +31,6 @@ function App() {
     });
   }, []);
 
-  // useEffect(() => {}, []);
   // Fetch API
   const getWeather = () => {
     fetch(`${BASE_URL}weather?q=${city}&units=metric&appid=${API_KEY}`)
@@ -36,9 +38,18 @@ function App() {
       .then((data) => setWeather(data));
   };
 
+  const getForecast = () => {
+    fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=${FORECAST_KEY}&q=${city}&days=1&aqi=no&alerts=no`
+    )
+      .then((res) => res.json())
+      .then((data) => setForecast(data));
+  };
+
   const handleKey = (e) => {
     if (e.key === "Enter") {
       getWeather();
+      getForecast();
       setCity("");
     }
   };
@@ -46,6 +57,7 @@ function App() {
   const handleClick = () => {
     if (!city) return;
     getWeather();
+    getForecast();
     setCity("");
   };
 
@@ -67,6 +79,7 @@ function App() {
           <div>
             <TimeAndLocation weather={weather} />
             <Details weather={weather} />
+            <Forecast forecast={forecast} />
           </div>
         ) : (
           ""
