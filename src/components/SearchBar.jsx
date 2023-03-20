@@ -1,14 +1,9 @@
 import React from "react";
-import { GoLocation } from "react-icons/go";
 
 const SearchBar = ({ city, handleKey, handleClick, inputChange }) => {
   return (
     <div className=" flex-nowrap flex flex-row justify-center my-6 min-w-lg w-full ">
       <div className=" flex flex-row w-3/4 items-center justify-center ">
-        <GoLocation
-          size={18}
-          className=" md:flex-shrink-0 lg:flex-shrink-0 text-white cursor-pointer ease-out hover:scale-125 md:mx-4 lg:mx-4 sm:mx-4"
-        />
         <input
           type="text"
           placeholder="search for city..."

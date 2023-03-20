@@ -1,12 +1,14 @@
 import React from "react";
 import dateBuilder from "./DateBuilder";
+import moment from "moment";
 
-const TimeAndLocation = ({ weather }) => {
+const TimeAndLocation = ({ weather, forecast }) => {
   return (
     <div>
       <div className="flex items-center justify-center my-6">
         <p className="text-white text-sm font-extralight">
-          {dateBuilder(new Date())}
+          {dateBuilder(new Date())} |{" "}
+          {moment(forecast.location.localtime).format("h:mm:ss a")}
         </p>
       </div>
       <div className="flex items-center justify-center my-3">

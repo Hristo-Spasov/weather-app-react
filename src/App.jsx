@@ -23,21 +23,30 @@ function App() {
       const { coords } = position;
       const lat = coords.latitude.toFixed(2);
       const lon = coords.longitude.toFixed(2);
+      const flat = coords.latitude; //forecast latitube
+      const flon = coords.longitude; //forecast longitude
+      //! Open weather API use Lat,Lon that are fixed to the second decimal
       fetch(
         `${BASE_URL}weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
       )
         .then((res) => res.json())
         .then((data) => setWeather(data));
+      //! weatherapi uses the full length of the coords
+      fetch(
+        `http://api.weatherapi.com/v1/forecast.json?key=${FORECAST_KEY}&q=${flat},${flon}&days=1&aqi=no&alerts=no`
+      )
+        .then((res) => res.json())
+        .then((data) => setForecast(data));
     });
   }, []);
 
-  // Fetch API
+  //* Get current weather
   const getWeather = () => {
     fetch(`${BASE_URL}weather?q=${city}&units=metric&appid=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => setWeather(data));
   };
-
+  //* Forecast API
   const getForecast = () => {
     fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=${FORECAST_KEY}&q=${city}&days=1&aqi=no&alerts=no`
@@ -77,7 +86,7 @@ function App() {
         />
         {typeof weather.main != "undefined" ? (
           <div>
-            <TimeAndLocation weather={weather} />
+            <TimeAndLocation weather={weather} forecast={forecast} />
             <Details weather={weather} />
             <Forecast forecast={forecast} />
           </div>
