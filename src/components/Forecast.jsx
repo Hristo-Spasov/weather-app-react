@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import moment from "moment/moment";
+import { useDraggable } from "react-use-draggable-scroll";
+import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 
 const Forecast = ({ forecast }) => {
   const hourForecast = [
@@ -196,24 +198,51 @@ const Forecast = ({ forecast }) => {
         .format("HH:mm A"),
     },
   ];
+  // ! Scroll drag hook
+  const ref = useRef();
+  const { events } = useDraggable(ref);
+  //* Left and Right scroll functions
+  const slideLeft = () => {
+    document.getElementById("slider").scrollLeft -= 60;
+  };
+  const slideRight = () => {
+    document.getElementById("slider").scrollLeft += 60;
+  };
+
   return (
     <div>
       <div className="flex items-center justify-center mt-6 ">
         <p className="text-white font-medium uppercase">24 hour forcast</p>
       </div>
       <hr className="my-2 w-full" />
-
-      <div className="flex flex-row items-center justify-between text-white overflow-x-scroll">
-        {hourForecast.map(({ id, time, icon, temp }) => (
-          <div
-            key={id}
-            className="flex flex-col items-center justify-center p-3"
-          >
-            <p className=" font-light text-sm">{time}</p>
-            <img src={icon} alt="" className="w-10 my-1" />
-            <p className=" font-medium">{temp}°</p>
-          </div>
-        ))}
+      <div className="relative flex items-center">
+        <RxCaretLeft
+          size={60}
+          className="opacity-60 cursor-pointer hover:opacity-100 text-white"
+          onClick={slideLeft}
+        />
+        <div
+          id="slider"
+          className="flex flex-row items-center justify-between text-white overflow-x-scroll"
+          {...events}
+          ref={ref}
+        >
+          {hourForecast.map(({ id, time, icon, temp }) => (
+            <div
+              key={id}
+              className="flex flex-col items-center justify-center p-3"
+            >
+              <p className=" font-light text-sm">{time}</p>
+              <img src={icon} alt="" className="w-10 my-1" draggable="false" />
+              <p className=" font-medium">{temp}°</p>
+            </div>
+          ))}
+        </div>
+        <RxCaretRight
+          size={60}
+          className="opacity-60 cursor-pointer hover:opacity-100 text-white"
+          onClick={slideRight}
+        />
       </div>
     </div>
   );
