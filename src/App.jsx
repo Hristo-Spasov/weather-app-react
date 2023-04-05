@@ -33,7 +33,7 @@ function App() {
         .then((data) => setWeather(data));
       //! weatherapi uses the full length of the coords
       fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${FORECAST_KEY}&q=${flat},${flon}&days=1&aqi=no&alerts=no`
+        `https://api.weatherapi.com/v1/forecast.json?key=${FORECAST_KEY}&q=${flat},${flon}&days=1&aqi=no&alerts=no`
       )
         .then((res) => res.json())
         .then((data) => setForecast(data));
