@@ -84,7 +84,8 @@ function App() {
           handleClick={handleClick}
           inputChange={inputChange}
         />
-        {typeof weather.main != "undefined" ? (
+        {typeof weather.main != "undefined" &&
+        typeof forecast.forecast != "undefined" ? (
           <div>
             <TimeAndLocation weather={weather} forecast={forecast} />
             <Details weather={weather} />
