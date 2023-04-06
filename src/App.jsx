@@ -38,7 +38,7 @@ function App() {
         .then((res) => res.json())
         .then((data) => setForecast(data));
     });
-  }, []);
+  }, [setForecast]);
 
   //* Get current weather
   const getWeather = () => {
