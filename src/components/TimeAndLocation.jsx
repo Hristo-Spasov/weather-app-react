@@ -8,7 +8,9 @@ const TimeAndLocation = ({ weather, forecast }) => {
       <div className="flex items-center justify-center my-6">
         <p className="text-white text-sm font-extralight">
           {dateBuilder(new Date())} |{" "}
-          {moment.utc(forecast.location.localtime).format("hh:mm:ss a")}
+          {moment
+            .utc(forecast.location.localtime, "YYYY-MM-DD HH:mm:ss")
+            .format("hh:mm:ss a")}
         </p>
       </div>
       <div className="flex items-center justify-center my-3">
