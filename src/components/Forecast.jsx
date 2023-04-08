@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import moment from "moment/moment";
+import { useRef } from "react";
 import { useDraggable } from "react-use-draggable-scroll";
+import moment from "moment/moment";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 
 const Forecast = ({ forecast }) => {
@@ -198,32 +198,39 @@ const Forecast = ({ forecast }) => {
         .format("HH:mm A"),
     },
   ];
-  // ! Scroll drag hook
+  //!  Drag Hook // Doesn't work with Tailwind smooth-scroll
   const ref = useRef();
   const { events } = useDraggable(ref);
+
   //* Left and Right scroll functions
   const slideLeft = () => {
-    document.getElementById("slider").scrollLeft -= 60;
+    document.getElementById("slider").scrollBy({
+      left: -100,
+      behavior: "smooth",
+    });
   };
   const slideRight = () => {
-    document.getElementById("slider").scrollLeft += 60;
+    document.getElementById("slider").scrollBy({
+      left: 100,
+      behavior: "smooth",
+    });
   };
 
   return (
-    <div>
+    <>
       <div className="flex items-center justify-center mt-6 ">
         <p className="text-white font-medium uppercase">24 hour forcast</p>
       </div>
       <hr className="my-2 w-full" />
       <div className="relative flex items-center">
         <RxCaretLeft
-          size={60}
+          size={80}
           className="opacity-60 cursor-pointer hover:opacity-100 text-white"
           onClick={slideLeft}
         />
         <div
           id="slider"
-          className="flex flex-row items-center justify-between text-white overflow-x-scroll"
+          className="flex flex-row items-center justify-between text-white hover:overflow-x-scroll overflow-hidden"
           {...events}
           ref={ref}
         >
@@ -239,12 +246,12 @@ const Forecast = ({ forecast }) => {
           ))}
         </div>
         <RxCaretRight
-          size={60}
+          size={80}
           className="opacity-60 cursor-pointer hover:opacity-100 text-white"
           onClick={slideRight}
         />
       </div>
-    </div>
+    </>
   );
 };
 

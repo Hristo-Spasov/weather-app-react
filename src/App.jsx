@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import SearchBar from "./components/SearchBar";
 import TimeAndLocation from "./components/TimeAndLocation";
 import Details from "./components/Details";
 import Forecast from "./components/Forecast";
 
-const API_KEY = "cfd5a3c5d473ebed2d404b7362727cc3";
+const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/2.5/";
-const FORECAST_KEY = "ccd47e17e1794027a3b71444230803";
+const FORECAST_KEY = import.meta.env.VITE_FORECAST_KEY;
 
 function App() {
   const [city, setCity] = useState("");
