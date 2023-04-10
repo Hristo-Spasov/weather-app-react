@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'snowBg': "url('/src/assets/snow.jpg')",
-        'hotBg': "url('/src/assets/hot.jpg')",
+        'defaultBg': "url('/src/assets/default.jpg')",
         'clearBg': "url('/src/assets/clear.jpg')",
         'cloudsBg': "url('/src/assets/clouds.jpg')",
         'drizzleBg': "url('/src/assets/Drizzle.jpg')",

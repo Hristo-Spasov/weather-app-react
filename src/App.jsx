@@ -99,7 +99,9 @@ function App() {
 
   return (
     <div
-      className={`flex justify-center mx-auto h-screen w-full ${background} bg-center bg-cover py-5 lg:px-32 md:px-32 `}
+      className={`flex justify-center mx-auto h-screen w-full ${
+        background ? background : "bg-defaultBg"
+      } bg-center bg-cover py-5 lg:px-32 md:px-32 `}
     >
       <main className=" flex flex-col h-fit w-full lg:w-2/3 text-slate-600 bg-slate-800 opacity-80 rounded-md py-2">
         <SearchBar
