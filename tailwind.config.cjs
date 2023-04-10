@@ -9,6 +9,12 @@ module.exports = {
       backgroundImage: {
         'snowBg': "url('/src/assets/snow.jpg')",
         'hotBg': "url('/src/assets/hot.jpg')",
+        'clearBg': "url('/src/assets/clear.jpg')",
+        'cloudsBg': "url('/src/assets/clouds.jpg')",
+        'drizzleBg': "url('/src/assets/Drizzle.jpg')",
+        'mistBg': "url('/src/assets/Mist.jpg')",
+        'rainBg': "url('/src/assets/Rain.jpg')",
+        'thunderstormBg': "url('/src/assets/Thunderstorm.jpg')",
       }
     },
   },

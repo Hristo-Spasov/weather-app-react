@@ -12,16 +12,20 @@ import moment from "moment/moment";
 const Details = ({ weather }) => {
   return (
     <div>
+      {/* The current weather */}
       <div className="flex items-center justify-center py-6 text-sm text-cyan-300">
         <p>{weather.weather[0].main}</p>
       </div>
       <div className=" flex flex-row items-center justify-evenly text-white py-3">
+        {/* Weather icon */}
         <img
           src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
           alt=""
           className="w-20"
         />
+        {/* Current temp */}
         <p className="text-4xl px-4"> {Math.round(weather.main.temp)}</p>
+        {/* Icon bar with humidity,temp_feel,wind speed */}
         <div className="flex flex-col ">
           <div className="flex font-light text-sm items-center justify-center">
             <WiThermometerExterior size={18} className="mr1" />
@@ -42,6 +46,7 @@ const Details = ({ weather }) => {
           </div>
         </div>
       </div>
+      {/* Sunrise and sunset and max temp and min temp */}
       <div className="flex flex-row items-center justify-center text-white space-x-2 text-sm py-3">
         <WiSunrise size={40} />
         <p className=" font-light">

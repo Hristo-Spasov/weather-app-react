@@ -2,12 +2,12 @@ import React from "react";
 
 const SearchBar = ({ city, handleKey, handleClick, inputChange }) => {
   return (
-    <div className=" flex-nowrap flex flex-row justify-center my-6 min-w-lg w-full ">
+    <div className=" flex-nowrap flex flex-row justify-center my-6  w-full ">
       <div className=" flex flex-row w-3/4 items-center justify-center ">
         <input
           type="text"
           placeholder="search for city..."
-          className="rounded-l-md  lg:w-3/4 text-xl font-light py-3 px-2  shadow-xl  focus:outline-none capitalize placeholder:lowercase lg:placeholder:text-center "
+          className="rounded-l-md w-2/4  sm:w-3/4 text-xl font-light py-3 px-2  shadow-xl  focus:outline-none capitalize placeholder:lowercase lg:placeholder:text-center "
           onChange={inputChange}
           value={city}
           onKeyDown={handleKey}

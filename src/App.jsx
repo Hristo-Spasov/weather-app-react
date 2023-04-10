@@ -12,6 +12,7 @@ function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState({});
   const [forecast, setForecast] = useState([]);
+  const [background, setBackground] = useState("");
 
   const geolocationAPI = navigator.geolocation;
 
@@ -30,6 +31,7 @@ function App() {
       )
         .then((res) => res.json())
         .then((data) => setWeather(data));
+
       //! weatherapi uses the full length of the coords
       fetch(
         `https://api.weatherapi.com/v1/forecast.json?key=${FORECAST_KEY}&q=${flat},${flon}&days=1&aqi=no&alerts=no`
@@ -38,6 +40,28 @@ function App() {
         .then((data) => setForecast(data));
     });
   }, [setForecast]);
+
+  // Dynamic background
+  useEffect(() => {
+    if (weather && weather.weather) {
+      const condition = weather.weather[0].main;
+      if (condition === "Clear") {
+        setBackground("bg-clearBg");
+      } else if (condition === "Clouds") {
+        setBackground("bg-cloudsBg");
+      } else if (condition === "Drizzle") {
+        setBackground("bg-drizzleBg");
+      } else if (condition === "Mist" || condition === "Fog") {
+        setBackground("bg-mistBg");
+      } else if (condition === "Rain") {
+        setBackground("bg-rainBg");
+      } else if (condition === "Thunderstorm") {
+        setBackground("bg-thunderstormBg");
+      } else {
+        setBackground("bg-snowBg");
+      }
+    }
+  }, [weather]);
 
   //* Get current weather
   const getWeather = () => {
@@ -74,7 +98,9 @@ function App() {
   };
 
   return (
-    <div className=" flex justify-center mx-auto h-screen w-full bg-snowBg bg-center bg-cover py-5 lg:px-32 md:px-32 ">
+    <div
+      className={`flex justify-center mx-auto h-screen w-full ${background} bg-center bg-cover py-5 lg:px-32 md:px-32 `}
+    >
       <main className=" flex flex-col h-fit w-full lg:w-2/3 text-slate-600 bg-slate-800 opacity-80 rounded-md py-2">
         <SearchBar
           city={city}
