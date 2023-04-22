@@ -230,7 +230,7 @@ const Forecast = ({ forecast }) => {
         />
         <div
           id="slider"
-          className="flex flex-row items-center justify-between text-white hover:overflow-x-scroll overflow-hidden"
+          className="flex flex-row items-center justify-between text-white hover:overflow-x-scroll sm:overflow-hidden overflow-scroll"
           {...events}
           ref={ref}
         >
